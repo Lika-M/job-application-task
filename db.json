@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "firstName": "Test",
+      "lastName": "Testov",
+      "email": "test@test.com",
+      "password": "asdasd",
+      "termsAccepted": true,
+      "user_type": "employee",
+      "id": 1
+    },
+    {
+      "firstName": "mama",
+      "lastName": "Mamamama",
+      "email": "mama@abv.bg",
+      "password": "12345",
+      "termsAccepted": true,
+      "user_type": "employee",
+      "id": 2
+    },
+    {
+      "firstName": "Peter",
+      "lastName": "Petrov",
+      "email": "peter@abv.bg",
+      "password": "123456",
+      "termsAccepted": true,
+      "user_type": "employee",
+      "id": 3
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "companyName": "Sample Company",
+      "email": "company@example.com",
+      "password": "password123",
+      "vat": "BG123456789",
+      "termsAccepted": true,
+      "user_type": "company"
+    },
+    {
+      "id": 2,
+      "companyName": "MyCompany",
+      "email": "test-test@test.bg",
+      "password": "test123",
+      "vat": "BG987654321",
+      "termsAccepted": true,
+      "user_type": "company"
+    },
+    {
+      "companyName": "FakeCompany",
+      "vat": "BG234612877",
+      "email": "admin@fake.com",
+      "password": "11111",
+      "termsAccepted": true,
+      "user_type": "company",
+      "id": 3
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "title": "Frontend Developer",
+      "company_id": 1,
+      "description": "JavaScript, TypeScript.",
+      "applicants": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Backend Developer",
+      "company_id": 1,
+      "description": "Java, Python",
+      "applicants": [
+        2
+      ]
+    }
+  ],
+  "cvs": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "content": "CV data..."
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "content": "CV data..."
+    }
+  ]
+}
