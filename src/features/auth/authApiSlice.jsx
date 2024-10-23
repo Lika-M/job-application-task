@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setAuthData, resetAuth } from './authSlice';
 
-const apiUrl = 'http://localhost:3000/api/auth';
+const apiUrl = 'http://localhost:3000/';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: apiUrl,
@@ -10,33 +10,45 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const customBaseQuery = async (args, api, extraOptions) => {
-  // Determine if the request is for a registration endpoint
-  const isRegistrationRequest = args.url.includes('/register/');
-  // Set credentials based on the request type
-  const result = await baseQuery(args, api, {
-    ...extraOptions,
-    credentials: isRegistrationRequest ? 'omit' : 'include',
-  });
+const customBaseQuery = async (args, api) => {
+  try {
+    const result = await baseQuery(args, api);
 
-  return result;
+    if (result.error) {
+      throw new Error(result.error.data || 'API request failed');
+    }
+    return result;
+  } catch (error) {
+    console.error('Base query error:', error);
+  }
 };
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: customBaseQuery,
   endpoints: (builder) => ({
+    
     // Employee Login
     loginEmployee: builder.mutation({
       query: (credentials) => ({
-        url: '/login/employee',
-        method: 'POST',
-        body: credentials,
+        url: '/users',
+        method: 'GET',
+        params: {
+          email: credentials.email,
+          password: credentials.password,
+        },
       }),
       onQueryStarted: async (credentials, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setAuthData({ userInfo: data.payload }));
+          const user = data.find((user) => 
+            (user.email === credentials.email && user.password === credentials.password));
+
+          if (user) {
+            dispatch(setAuthData({ userInfo: user }));
+          } else {
+            dispatch(setAuthData({ userInfo: null }));
+          }
         } catch (error) {
           console.error('Employee login failed:', error);
         }
@@ -46,14 +58,24 @@ export const authApi = createApi({
     // Company Login
     loginCompany: builder.mutation({
       query: (credentials) => ({
-        url: '/login/company',
-        method: 'POST',
-        body: credentials,
+        url: '/companies',
+        method: 'GET',
+        params: {
+          email: credentials.email,
+          password: credentials.password,
+        },
       }),
       onQueryStarted: async (credentials, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setAuthData({ userInfo: data.payload }));
+          const company = data.find((company) => 
+            (company.email === credentials.email && company.password === credentials.password));
+          
+          if (company) {
+            dispatch(setAuthData({ userInfo: company }));
+          } else {
+            dispatch(setAuthData({ userInfo: null }));
+          }
         } catch (error) {
           console.error('Company login failed:', error);
         }
@@ -63,7 +85,7 @@ export const authApi = createApi({
     // Employee Registration
     registerEmployee: builder.mutation({
       query: (userData) => ({
-        url: '/register/employee',
+        url: '/users',
         method: 'POST',
         body: userData,
       }),
@@ -72,42 +94,19 @@ export const authApi = createApi({
     // Company Registration
     registerCompany: builder.mutation({
       query: (userData) => ({
-        url: '/register/company',
+        url: '/companies',
         method: 'POST',
         body: userData,
       }),
     }),
 
-    // Token Refresh
-    refreshToken: builder.mutation({
-      query: () => ({
-        url: '/token',
-        method: 'POST',
-      }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setAuthData({ userInfo: data.payload }));
-        } catch (error) {
-          console.error('Token refresh failed:', error);
-          dispatch(resetAuth());
-        }
-      },
-    }),
-
     // Logout
     logout: builder.mutation({
-      query: () => ({
-        url: '/logout',
-        method: 'POST',
-      }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (_, { dispatch }) => {
         try {
-          await queryFulfilled; 
-          dispatch(resetAuth()); 
-        } catch (error) {
-          console.error('Logout request failed:', error);
           dispatch(resetAuth());
+        } catch (error) {
+          console.error('Logout process failed:', error);
         }
       },
     }),
@@ -119,6 +118,7 @@ export const {
   useLoginCompanyMutation,
   useRegisterEmployeeMutation,
   useRegisterCompanyMutation,
-  useRefreshTokenMutation,
   useLogoutMutation,
 } = authApi;
+
+export default authApi.reducer;
