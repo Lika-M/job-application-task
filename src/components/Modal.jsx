@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoginEmployeeMutation, useLoginCompanyMutation } from '../features/auth/authApiSlice';
 import { useDispatch } from 'react-redux';
 import { setAuthData } from '../features/auth/authSlice';
@@ -14,6 +14,13 @@ const Modal = ({ isToggled, setIsModalToggled, title, userRole }) => {
   const [loginEmployee] = useLoginEmployeeMutation();
   const [loginCompany] = useLoginCompanyMutation();
 
+  useEffect(() => {
+    if (isToggled) {
+      setFormData({ email: '', password: '' });
+      setError('');
+    }
+  }, [isToggled]);
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -21,14 +28,31 @@ const Modal = ({ isToggled, setIsModalToggled, title, userRole }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    const { confirmPassword, ...dataToSubmit } = formData;
+
     try {
       let result;
+
       if (userRole === 'employee') {
-        result = await loginEmployee(formData).unwrap();
+        dataToSubmit['user_type'] = 'employee';
+        result = await loginEmployee(dataToSubmit).unwrap();
       } else {
-        result = await loginCompany(formData).unwrap();
+        dataToSubmit['user_type'] = 'company';
+        result = await loginCompany(dataToSubmit).unwrap();
       }
-      dispatch(setAuthData({ userInfo: result.payload }));
+
+      if (Array.isArray(result) && result.length === 0) {
+        setError('Invalid email or password.');
+        return; 
+      }
+
+      dispatch(setAuthData({
+        userInfo: result[0],
+      }));
+
+      setError('');
+      setFormData({ email: '', password: '' });
 
       // Close the modal and navigate based on user role
       setIsModalToggled(false);

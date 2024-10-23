@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from '../features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { resetAuth } from '../features/auth/authSlice'; 
 
 const LogoutButton = () => {
-  const [logout] = useLogoutMutation();
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await logout().unwrap(); // Call the logout mutation
-      navigate('/login'); // Redirect after successful logout
+      dispatch(resetAuth()); 
+      navigate('/login'); 
     } catch (error) {
       console.error('Logout failed:', error);
     }

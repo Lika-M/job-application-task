@@ -12,7 +12,7 @@ import useAuth from '../hooks/useAuth';
 const AuthPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const { userInfo, userType } = useAuth();
   const [mode, setMode] = useState('login');
   const [userRole, setUserRole] = useState('employee');
@@ -25,31 +25,59 @@ const AuthPage = () => {
 
   const handleFormSubmit = async (formData) => {
     setError('');
+    const { confirmPassword, ...dataToSubmit } = formData;
+// TODO: Add validation
     try {
       let result;
       if (mode === 'login') {
         if (userRole === 'employee') {
-          result = await loginEmployee(formData).unwrap();
+          dataToSubmit['user_type'] = 'employee';
+          result = await loginEmployee(dataToSubmit).unwrap();
         } else {
-          result = await loginCompany(formData).unwrap();
+          dataToSubmit['user_type'] = 'company';
+          result = await loginCompany(dataToSubmit).unwrap();
         }
+
+        if (Array.isArray(result) && result.length === 0) {
+          setError('Invalid email or password.');
+          return; 
+        }
+        
+        dispatch(setAuthData({
+          userInfo: result[0],
+        }));
+
       } else {
-        if (formData.password !== formData.confirmPassword) {
+        if (dataToSubmit.password !== confirmPassword) {
           setError('Passwords do not match!');
           return;
         }
-        if (!formData.termsAccepted) {
+
+        if (!dataToSubmit.termsAccepted) {
           setError('You must accept the terms to register.');
           return;
         }
+
         if (userRole === 'employee') {
-          result = await registerEmployee(formData).unwrap();
+          dataToSubmit['user_type'] = 'employee'
+          result = await registerEmployee(dataToSubmit).unwrap();
         } else {
-          result = await registerCompany(formData).unwrap();
+          dataToSubmit['user_type'] = 'company'
+          result = await registerCompany(dataToSubmit).unwrap();
         }
+
+        if (Array.isArray(result) && result.length === 0) {
+          setError('Invalid email or password.');
+          return; 
+        }
+
+        dispatch(setAuthData({
+          userInfo: result,
+        }));
       }
-      dispatch(setAuthData({ userInfo: result.payload }));
+
     } catch (err) {
+      console.error('Error during authentication:', err);
       setError(err.data?.message || 'An error occurred during authentication.');
     }
   };
@@ -83,7 +111,7 @@ const AuthPage = () => {
           Company
         </button>
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className="text-red-500 text-sm mt-1 text-center">{error}</p>}
       {mode === 'login' && userRole === 'employee' && <EmployeeLogin onSubmit={handleFormSubmit} />}
       {mode === 'register' && userRole === 'employee' && <EmployeeRegister onSubmit={handleFormSubmit} />}
       {mode === 'login' && userRole === 'company' && <CompanyLogin onSubmit={handleFormSubmit} />}
