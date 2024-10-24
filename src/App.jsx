@@ -21,7 +21,7 @@ const ActiveJobs = lazy(() => import('./pages/CompanyDashboard/ActiveJobs'));
 const AllCompanyJobs = lazy(() => import('./pages/CompanyDashboard/AllCompanyJobs'));
 const CompanyProfile = lazy(() => import('./pages/CompanyDashboard/CompanyProfile'));
 const CvLibrary = lazy(() => import('./pages/CompanyDashboard/CvLibrary'));
-const Questioniers = lazy(() => import('./pages/CompanyDashboard/Questioniers'));
+const Questionnaires = lazy(() => import('./pages/CompanyDashboard/Questionnaires'));
 const NotAuthorized = lazy(() => import('./error/NotAuthorized'));
 const Nav = lazy(() => import('./components/Nav'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -126,7 +126,7 @@ function App() {
             path="/company-dashboard/questionnaires"
             element={
               <ProtectedRoute allowedRoles={['company']}>
-                <Questioniers />
+                <Questionnaires />
               </ProtectedRoute>
             }
           />
