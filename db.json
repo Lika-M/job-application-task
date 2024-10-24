@@ -10,36 +10,18 @@
       "id": 1
     },
     {
-      "firstName": "mama",
-      "lastName": "Mamamama",
-      "email": "mama@abv.bg",
-      "password": "12345",
-      "termsAccepted": true,
-      "user_type": "employee",
-      "id": 2
-    },
-    {
       "firstName": "Peter",
       "lastName": "Petrov",
       "email": "peter@abv.bg",
       "password": "123456",
       "termsAccepted": true,
       "user_type": "employee",
-      "id": 3
+      "id": 2
     }
   ],
   "companies": [
     {
-      "id": 1,
-      "companyName": "Sample Company",
-      "email": "company@example.com",
-      "password": "password123",
-      "vat": "BG123456789",
-      "termsAccepted": true,
-      "user_type": "company"
-    },
-    {
-      "id": 2,
+      "id": 4,
       "companyName": "MyCompany",
       "email": "test-test@test.bg",
       "password": "test123",
@@ -55,6 +37,15 @@
       "termsAccepted": true,
       "user_type": "company",
       "id": 3
+    }
+  ],
+  "questionnaires": [
+    {
+      "id": 1,
+      "companyId": 4,
+      "category": "backend",
+      "position": "JAVA Mid Developer",
+      "questions": []
     }
   ],
   "jobs": [
