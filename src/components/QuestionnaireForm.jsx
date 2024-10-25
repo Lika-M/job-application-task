@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
+import useAuth from "../hooks/useAuth";
 
 const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => {
-  const [title, setTitle] = useState(initialData.title || '');
   const [category, setCategory] = useState(initialData.category || '');
+  const [position, setPosition] = useState(initialData.position || '');
+  const [technologies, setTechnologies] = useState(initialData.technologies || '');
   const [questions, setQuestions] = useState(initialData.questions || [{ text: '' }]);
+
+  const { userInfo } = useAuth();
+  const companyId = userInfo?.id;
 
   const handleQuestionChange = (index, value) => {
     const newQuestions = [...questions];
@@ -12,7 +17,7 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
     setQuestions(newQuestions);
   };
 
-  const addQuestion = () => {
+  const handleAddQuestion = () => {
     setQuestions([...questions, { text: '' }]);
   };
 
@@ -23,12 +28,22 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
   };
 
   const handleSave = () => {
-    const questionnaire = { title, category, questions };
+    const questionnaire = { 
+      companyId,
+      category, 
+      position, 
+      technologies, 
+      questions, 
+    };
     if (initialData.id) {
       onUpdate(questionnaire);
     } else {
       onSave(questionnaire);
     }
+    setCategory('');
+    setPosition('');
+    setTechnologies('');
+    setQuestions([]);
   };
 
   const handleDelete = () => {
@@ -55,8 +70,18 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
         <label className="block text-sm font-medium text-gray-700">Позиция:</label>
         <input
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Технологии:</label>
+        <input
+          type="text"
+          value={technologies}
+          onChange={(e) => setTechnologies(e.target.value)}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
         />
       </div>
@@ -82,10 +107,10 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
         ))}
         <button
           type="button"
-          onClick={addQuestion}
+          onClick={handleAddQuestion}
           className="text-white bg-[#004AAD] hover:bg-blue-700 px-4 py-2 rounded-md shadow-sm"
         >
-          Добави ред за въпрос
+          Добави въпрос
         </button>
       </div>
 

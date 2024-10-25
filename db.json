@@ -45,7 +45,72 @@
       "companyId": 4,
       "category": "backend",
       "position": "JAVA Mid Developer",
-      "questions": []
+      "technologies": "Java, Spring, MySQL, Docker",
+      "questions": [
+        {
+          "text": "Можете ли да обясните проект, в който сте използвали Java 11 или по-нова версия? Какви бяха предизвикателствата и как ги преодоляхте?"
+        },
+        {
+          "text": "Можете ли да опишете опита си в изграждането на облачни приложения с Spring Boot и Docker?"
+        },
+        {
+          "text": "Как сте използвали Spring Ecosystem (Spring boot, Spring REST, Spring Security и т.н.) в предишните си проекти?"
+        },
+        {
+          "text": "Можете ли да дадете пример за това как сте работили с релационни бази данни в минал проект?"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "companyId": 3,
+      "category": "Backend Development",
+      "position": "JAVA Regular Developer",
+      "technologies": "Java, Hibernate, Kubernetes",
+      "questions": [
+        {
+          "text": "Можете ли да обясните проект, в който сте използвали Java 11 или по-нова версия?"
+        },
+        {
+          "text": "Можете ли да дадете пример за това как сте работили с релационни бази данни в минал проект?"
+        },
+        {
+          "text": "Имали ли сте опит с Kafka, JWT и Spring Cloud? Бихте ли дали пример за проект, в който те са използвани?"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "companyId": 4,
+      "category": "Frontend Development ",
+      "position": "Front-end Developer",
+      "technologies": "JavaScrypt, React",
+      "questions": [
+        {
+          "text": "Можете ли да споделите проект, в който широко сте използвали JavaScript и React за front-end разработка?"
+        }
+      ]
+    },
+    {
+      "companyId": 3,
+      "category": "Infrastructure",
+      "position": "DevOps Engineer",
+      "technologies": "Mocha, Chai, Cypress",
+      "questions": [
+        {
+          "text": "First question"
+        },
+        {
+          "text": "Second question"
+        },
+        {
+          "text": "Third question"
+        },
+        {
+          "text": "Lorem ipsum"
+        }
+      ],
+      "id": 4
     }
   ],
   "jobs": [
