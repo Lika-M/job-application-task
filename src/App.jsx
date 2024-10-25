@@ -17,6 +17,7 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const JobCategories = lazy(() => import('./pages/JobCategories'));
 const Jobs = lazy(() => import('./pages/Jobs'));
+const JobListings= lazy(() => import('./pages/JobListings'));
 const ActiveJobs = lazy(() => import('./pages/CompanyDashboard/ActiveJobs'));
 const AllCompanyJobs = lazy(() => import('./pages/CompanyDashboard/AllCompanyJobs'));
 const CompanyProfile = lazy(() => import('./pages/CompanyDashboard/CompanyProfile'));
@@ -55,6 +56,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/job-board" element={<JobListings />} />
 
           {/* Protected routes for employees */}
           <Route

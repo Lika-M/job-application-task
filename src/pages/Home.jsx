@@ -11,7 +11,7 @@ const Home = () => {
                     <div className="md:mr-8 text-center w-full">
                         <h2 className="text-3xl font-semibold mb-4">Намери Мечтаната Работа Бързо и Лесно</h2>
                         <p className="text-xl">Много Възможности</p>
-                        <Link to="/job-categories" className="mt-4 inline-block px-8 py-4 bg-[#A55DD8] text-white font-semibold rounded">Виж Всички Обяви</Link>
+                        <Link to="/job-board" className="mt-4 inline-block px-8 py-4 bg-[#A55DD8] text-white font-semibold rounded">Виж Всички Обяви</Link>
                     </div>
                 </div>
             </section>
