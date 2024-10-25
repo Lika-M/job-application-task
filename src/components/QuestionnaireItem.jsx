@@ -1,23 +1,20 @@
 /* eslint-disable react/prop-types */
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionnaireItem = ({ questionnaire, onSelect }) => {
-    // const history = useHistory();
+    const navigate = useNavigate();
 
     const handleCardClick = () => {
-        // history.push(`/questionnaires/${questionnaire.id}`); 
+        navigate(`/company-dashboard/questionnaires/${questionnaire.id}`);
     };
 
     return (
         <div
-            className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl cursor-pointer"
+            className="flex flex-col bg-white shadow rounded-lg p-3 hover:shadow-xl cursor-pointer"
             onClick={handleCardClick}
         >
-            <h3 className="text-xl font-semibold mb-2">Category: {questionnaire.category}</h3>
-            <h4 className="text-lg font-medium mb-1">Position: {questionnaire.position}</h4>
-            {/* <p className="text-gray-600 truncate">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
-            </p> */}
+            <h3 className="text-xl font-bold text-blue-600">{questionnaire.position}</h3>
+            <p className="text-gray-600">Technologies: <span className="font-semibold">{questionnaire.technologies}</span></p>
         </div>
     );
 };
