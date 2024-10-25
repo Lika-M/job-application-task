@@ -13,7 +13,7 @@ const Questionnaires = () => {
     const companyId = userType === 'company' ? userInfo.id : null;
 
     // Fetch questionnaires from RTK Query
-    const { data: questionnaires = [] } = useGetQuestionnairesQuery(companyId);
+    const { data: questionnaires = [], refetch } = useGetQuestionnairesQuery(companyId);
 
     // Initialize mutations
     const [addQuestionnaire] = useAddQuestionnaireMutation();
@@ -24,11 +24,12 @@ const Questionnaires = () => {
     const handleCreateQuestionnaire = async (newQuestionnaire) => {
         try {
             await addQuestionnaire(newQuestionnaire).unwrap();
+            refetch();
         } catch (error) {
             console.error("Failed to create questionnaire: ", error);
         }
     };
-
+  
     // Update questionnaire
     const handleUpdateQuestionnaire = async (updatedQuestionnaire) => {
         try {
@@ -59,11 +60,6 @@ const Questionnaires = () => {
             <h1 className="text-4xl font-bold mb-8">Моите Въпросници</h1>
             <p className="mb-4">Това е мястото, където можете да управлявате вашите активни въпросници за работа.</p>
 
-            {/* Back Button */}
-            <Link to="/company-dashboard" className="inline-block px-8 py-4 bg-[#004AAD] text-white font-semibold rounded hover:bg-blue-700">
-                Обратно в Профила
-            </Link>
-
             {/* Questionnaire List  */}
             <ul className="mt-6 mb-6">
                 {questionnaires.length === 0 ? (
@@ -76,6 +72,12 @@ const Questionnaires = () => {
                     />
                 )}
             </ul>
+
+            {/* Back Button */}
+            <Link to="/company-dashboard" className="inline-block px-8 py-4 bg-[#004AAD] text-white font-semibold rounded hover:bg-blue-700">
+                Обратно в Профила
+            </Link>
+
             {/* Questionnaire creation/edit form */}
             <QuestionnaireForm
                 initialData={selectedQuestionnaire || {}}
