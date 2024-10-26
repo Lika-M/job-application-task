@@ -121,20 +121,29 @@
       "createdAt": "2024-10-25T14:30:00.000Z",
       "category": "Frontend Developer",
       "position": "JavaScript Engineer",
-      "description": "Some description",
-      "technologies": "JavaScript, Angular",
+      "description": "We are looking for a ReactJS Developer to join our small, yet highly skilled team of IT professionals and make an impact on the future of the financial services industry. You will be part of Geowealth’s Front-End Team and you’ll build features, screens and reusable components for Geowealth’s web-based advisor platform. You will use your ReactJS skills to create a modern, robust and well-architectured web app, that will help both financial advisors and end customers track their investments.",
+      "technologies": "JavaScript, React",
       "requirements": [
         {
-          "text": "First"
+          "text": "Advanced expertise in React."
         },
         {
-          "text": "Second"
+          "text": "Advanced development experience in HTML5, CSS3, , JavaScript(ES6) / TypeScript."
         },
         {
-          "text": "Third"
+          "text": "Working experience with GIT"
         },
         {
-          "text": "Lorem ipsum"
+          "text": "Deep understanding of UX/UI and responsive design, advanced knowledge of mobile-first responsive web development."
+        },
+        {
+          "text": "Graphical sense of design, ability to take sketches and turn them into working UI."
+        },
+        {
+          "text": "Experience working with internal and third party RESTful APIs."
+        },
+        {
+          "text": "Ability to write clean, scalable/modular code."
         }
       ],
       "applicants": [
@@ -147,15 +156,30 @@
       "companyId": 4,
       "category": "backend",
       "position": "JAVA Regular Developer",
-      "description": "тест",
+      "description": "Experian is a global data and technology company, powering opportunities for people and businesses around the world. We help to redefine lending practices, uncover and prevent fraud, simplify healthcare, provide digital marketing solutions, and gain deeper insights into the automotive market, all using our unique combination of data, analytics and software. We also assist millions of people to realise their financial goals and help them to save time and money.",
       "technologies": "Java, Hibernate, Kubernetes",
       "requirements": [
         {
-          "text": "тест"
+          "text": "Education in the mathematics/information technology fields"
+        },
+        {
+          "text": "Experience as a Java Developer"
+        },
+        {
+          "text": "Experience with distributed systems"
+        },
+        {
+          "text": "Experience with Hibernate, Relational Database - Postgres/MySQL/MSSQL"
+        },
+        {
+          "text": "Experience with JUnit/Integration testing, Build tools: Maven/Gradle, Version control: Git"
+        },
+        {
+          "text": "Experience with Kafka, Redis, JWT and Spring Cloud will be considered as an advantage"
         }
       ],
       "isActive": true,
-      "id": 9
+      "id": 2
     }
   ],
   "cvs": [

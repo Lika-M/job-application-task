@@ -16,15 +16,15 @@ const Blog = lazy(() => import('./pages/Blog'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const JobCategories = lazy(() => import('./pages/JobCategories'));
-const Jobs = lazy(() => import('./pages/Jobs'));
 const JobListings = lazy(() => import('./pages/JobListings'));
 const ActiveJobs = lazy(() => import('./pages/CompanyDashboard/ActiveJobs'));
 const AllCompanyJobs = lazy(() => import('./pages/CompanyDashboard/AllCompanyJobs'));
 const CompanyProfile = lazy(() => import('./pages/CompanyDashboard/CompanyProfile'));
 const CvLibrary = lazy(() => import('./pages/CompanyDashboard/CvLibrary'));
 const CompanyJobForm = lazy(() => import('./pages/CompanyDashboard/CompanyJobForm'));
-const CompanyQuestionnaireForm = lazy(() => import('./pages/CompanyDashboard/CompanyQuestionnaireForm'));
+const CompanyJobDetail = lazy(() => import('./pages/CompanyDashboard/CompanyJobDetail'));
 const Questionnaires = lazy(() => import('./pages/CompanyDashboard/Questionnaires'));
+const CompanyQuestionnaireForm = lazy(() => import('./pages/CompanyDashboard/CompanyQuestionnaireForm'));
 const QuestionnaireDetail = lazy(() => import('./pages/CompanyDashboard/QuestionnaireDetail'));
 const NotAuthorized = lazy(() => import('./error/NotAuthorized'));
 const Nav = lazy(() => import('./components/Nav'));
@@ -77,15 +77,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/jobs"
-            element={
-              <ProtectedRoute allowedRoles={['employee']}>
-                <Jobs />
-              </ProtectedRoute>
-            }
-          />
-
           {/* Protected routes for companies */}
           <Route
             path="/company-dashboard"
@@ -132,6 +123,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['company']}>
                 <CompanyJobForm />
+              </ProtectedRoute>
+            }
+          />
+            <Route
+            path="/company-dashboard/jobs/:id"
+            element={
+              <ProtectedRoute allowedRoles={['company']}>
+                <CompanyJobDetail />
               </ProtectedRoute>
             }
           />

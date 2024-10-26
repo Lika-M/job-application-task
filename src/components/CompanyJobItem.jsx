@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom';
 
 const CompanyJobItem = ({ job, onSelect, onDelete }) => {
-    console.log(job)
+    const navigate = useNavigate();
 
+    const handleClick = () => {
+        navigate(`/company-dashboard/jobs/${job.id}`);
+    };
     function formatDate(isoDate) {
         const date = new Date(isoDate);
         const day = String(date.getDate()).padStart(2, '0'); 
@@ -12,7 +16,9 @@ const CompanyJobItem = ({ job, onSelect, onDelete }) => {
     }
 
     return (
-        <div className="flex flex-col bg-white shadow rounded-lg p-3 hover:shadow-xl cursor-pointer">
+        <div className="flex flex-col bg-white shadow rounded-lg p-3 hover:shadow-xl cursor-pointer"
+            onClick={handleClick}
+        >
             <div>
                 <h3 className="text-xl font-bold text-blue-600">{job.position}</h3>
                 <p className="text-gray-600">Technologies: <span className="font-semibold">{job.technologies}</span></p>
