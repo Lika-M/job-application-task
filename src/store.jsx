@@ -10,6 +10,9 @@ import { authApi } from './features/auth/authApiSlice';
 import questionnaireReducer from './features/questionnaires/questionnaireSlice';
 import { questionnaireApi } from './features/questionnaires/questionnaireApi';
 
+import jobsReducer from './features/jobs/jobsSlice';
+import { jobsApi } from './features/jobs/jobsApiSlice';
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -20,6 +23,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   [questionnaireApi.reducerPath]: questionnaireApi.reducer,
   questionnaires: questionnaireReducer,
+  [jobsApi.reducerPath]: jobsApi.reducer,
+  jobs: jobsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +34,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(authApi.middleware, questionnaireApi.middleware)
+    }).concat(authApi.middleware, questionnaireApi.middleware, jobsApi.middleware)
 });
 
 export const persistor = persistStore(store);
