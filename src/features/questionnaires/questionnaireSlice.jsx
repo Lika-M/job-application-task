@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   questionnaires: [],
+  selectedQuestionnaire: null
 };
 
 const questionnaireSlice = createSlice({
@@ -21,13 +22,18 @@ const questionnaireSlice = createSlice({
     deleteQuestionnaire(state, action) {
       state.questionnaires = state.questionnaires.filter(q => q.id !== action.payload);
     },
+    setSelectedQuestionnaire(state, action) { 
+      state.selectedQuestionnaire = action.payload;
+    },
   },
 });
 
+export const selectSelectedQuestionnaire = (state) => state.questionnaires.selectedQuestionnaire;
 export const {
   addQuestionnaire,
   updateQuestionnaire,
   deleteQuestionnaire,
+  setSelectedQuestionnaire
 } = questionnaireSlice.actions;
 
 export default questionnaireSlice.reducer;

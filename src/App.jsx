@@ -17,12 +17,13 @@ const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const JobCategories = lazy(() => import('./pages/JobCategories'));
 const Jobs = lazy(() => import('./pages/Jobs'));
-const JobListings= lazy(() => import('./pages/JobListings'));
+const JobListings = lazy(() => import('./pages/JobListings'));
 const ActiveJobs = lazy(() => import('./pages/CompanyDashboard/ActiveJobs'));
 const AllCompanyJobs = lazy(() => import('./pages/CompanyDashboard/AllCompanyJobs'));
 const CompanyProfile = lazy(() => import('./pages/CompanyDashboard/CompanyProfile'));
 const CvLibrary = lazy(() => import('./pages/CompanyDashboard/CvLibrary'));
 const CompanyJobForm = lazy(() => import('./pages/CompanyDashboard/CompanyJobForm'));
+const CompanyQuestionnaireForm = lazy(() => import('./pages/CompanyDashboard/CompanyQuestionnaireForm'));
 const Questionnaires = lazy(() => import('./pages/CompanyDashboard/Questionnaires'));
 const QuestionnaireDetail = lazy(() => import('./pages/CompanyDashboard/QuestionnaireDetail'));
 const NotAuthorized = lazy(() => import('./error/NotAuthorized'));
@@ -40,11 +41,11 @@ function App() {
 
   return (
     <>
-    <Suspense  fallback={
-          <div className="flex items-center justify-center min-h-screen">
-            <ClipLoader color="#4A90E2" size={50} />
-          </div>
-        }>
+      <Suspense fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <ClipLoader color="#4A90E2" size={50} />
+        </div>
+      }>
         <Nav />
 
         <Routes>
@@ -126,8 +127,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
-            path="/company-dashboard/job-form"
+          <Route
+            path="/company-dashboard/jobs/create-job"
             element={
               <ProtectedRoute allowedRoles={['company']}>
                 <CompanyJobForm />
@@ -142,7 +143,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
+            path="/company-dashboard/questionnaires/create-questionnaire"
+            element={
+              <ProtectedRoute allowedRoles={['company']}>
+                <CompanyQuestionnaireForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/company-dashboard/questionnaires/:id"
             element={
               <ProtectedRoute allowedRoles={['company']}>
