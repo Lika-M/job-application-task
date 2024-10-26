@@ -116,21 +116,46 @@
   "jobs": [
     {
       "id": 1,
-      "title": "Frontend Developer",
-      "company_id": 1,
-      "description": "JavaScript, TypeScript.",
+      "companyId": 4,
+      "isActive": true,
+      "createdAt": "2024-10-25T14:30:00.000Z",
+      "category": "Frontend Developer",
+      "position": "JavaScript Engineer",
+      "description": "Some description",
+      "technologies": "JavaScript, Angular",
+      "requirements": [
+        {
+          "text": "First"
+        },
+        {
+          "text": "Second"
+        },
+        {
+          "text": "Third"
+        },
+        {
+          "text": "Lorem ipsum"
+        }
+      ],
       "applicants": [
         1
-      ]
+      ],
+      "questionnaireId": 3
     },
     {
-      "id": 2,
-      "title": "Backend Developer",
-      "company_id": 1,
-      "description": "Java, Python",
-      "applicants": [
-        2
-      ]
+      "createdAt": "2024-10-26T07:15:19.331Z",
+      "companyId": 4,
+      "category": "backend",
+      "position": "JAVA Regular Developer",
+      "description": "тест",
+      "technologies": "Java, Hibernate, Kubernetes",
+      "requirements": [
+        {
+          "text": "тест"
+        }
+      ],
+      "isActive": true,
+      "id": 9
     }
   ],
   "cvs": [
