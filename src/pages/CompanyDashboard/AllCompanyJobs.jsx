@@ -28,7 +28,6 @@ const AllCompanyJobs = () => {
 
     const handleSelectJobForEdit = (job) => {
         dispatch(setSelectedJob(job));
-        console.log("Selected job for edit:", job);
     };
 
     return (

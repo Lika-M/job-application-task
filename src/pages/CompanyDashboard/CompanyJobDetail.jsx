@@ -10,7 +10,7 @@ const CompanyJobDetail = () => {
     const [updateJob] = useUpdateJobMutation();
     const companyId = userInfo?.id;
 
-    const { data: jobs = [] } = useGetJobsQuery(companyId, {
+    const { data: jobs = [], refetch } = useGetJobsQuery(companyId, {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true,
     });
@@ -29,8 +29,8 @@ const CompanyJobDetail = () => {
         try {
             const updatedJob = { ...job, isActive: true };
             await updateJob(updatedJob).unwrap();
-            console.log("publish!")
-            navigate('/job-board');
+            refetch();
+            navigate('/company-dashboard/all-jobs');
         } catch (error) {
             console.error("Error publishing job:", error);
         }
@@ -40,8 +40,8 @@ const CompanyJobDetail = () => {
         try {
             const updatedJob = { ...job, isActive: false };
             await updateJob(updatedJob).unwrap();
-            console.log("unPublish!")
-            navigate('/job-board');
+            refetch()
+            navigate('/company-dashboard/all-jobs');
         } catch (error) {
             console.error("Error publishing job:", error);
         }

@@ -111,50 +111,6 @@
         }
       ],
       "id": 4
-    },
-    {
-      "companyId": 4,
-      "category": "test",
-      "position": "test",
-      "technologies": "test",
-      "questions": [],
-      "id": 5
-    },
-    {
-      "companyId": 4,
-      "category": "test",
-      "position": "test",
-      "technologies": "test",
-      "questions": [
-        {
-          "text": "test"
-        }
-      ],
-      "id": 6
-    },
-    {
-      "companyId": 4,
-      "category": "test",
-      "position": "test",
-      "technologies": "",
-      "questions": [
-        {
-          "text": "test"
-        }
-      ],
-      "id": 7
-    },
-    {
-      "companyId": 4,
-      "category": "",
-      "position": "AAAAAAAAAAAAAAa",
-      "technologies": "",
-      "questions": [
-        {
-          "text": ""
-        }
-      ],
-      "id": 8
     }
   ],
   "jobs": [
@@ -226,85 +182,19 @@
       "id": 2
     },
     {
-      "createdAt": "2024-10-27T07:51:18.803Z",
-      "companyId": 4,
-      "category": "management",
-      "position": "test",
-      "description": "test",
-      "technologies": "test",
-      "requirements": [],
-      "isActive": true,
-      "id": 3
-    },
-    {
-      "createdAt": "2024-10-27T08:05:43.994Z",
+      "createdAt": "2024-10-27T06:43:13.759Z",
       "companyId": 4,
       "category": "dataScience",
       "position": "test",
       "description": "test",
       "technologies": "test",
-      "requirements": [],
-      "isActive": true,
-      "id": 4
-    },
-    {
-      "createdAt": "2024-10-27T08:07:32.386Z",
-      "companyId": 4,
-      "category": "management",
-      "position": "test",
-      "description": "test",
-      "technologies": "test",
-      "requirements": [],
-      "isActive": true,
-      "id": 5
-    },
-    {
-      "createdAt": "2024-10-27T08:08:27.245Z",
-      "companyId": 4,
-      "category": "frontend",
-      "position": "test",
-      "description": "test",
-      "technologies": "test",
-      "requirements": [],
-      "isActive": true,
-      "id": 6
-    },
-    {
-      "createdAt": "2024-10-27T08:26:19.004Z",
-      "companyId": 4,
-      "category": "fullStack",
-      "position": "JAVA Regular Developer",
-      "description": "test",
-      "technologies": "Java, Hibernate, Kubernetes",
-      "requirements": [],
-      "isActive": true,
-      "id": 7
-    },
-    {
-      "createdAt": "2024-10-27T08:26:48.531Z",
-      "companyId": 4,
-      "category": "infrastructure",
-      "position": "test",
-      "description": "test",
-      "technologies": "test",
       "requirements": [
         {
-          "text": ""
+          "text": "test"
         }
       ],
       "isActive": false,
-      "id": 8
-    },
-    {
-      "createdAt": "2024-10-27T08:29:55.297Z",
-      "companyId": 4,
-      "category": "management",
-      "position": "JAVA Regular Developer",
-      "description": "test",
-      "technologies": "test",
-      "requirements": [],
-      "isActive": true,
-      "id": 9
+      "id": 3
     }
   ],
   "cvs": [

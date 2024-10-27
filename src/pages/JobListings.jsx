@@ -1,15 +1,25 @@
+import {useEffect} from 'react';
 import { useGetAllJobsQuery } from '../features/jobs/jobsApiSlice.jsx';
 
 const JobListings = () => {
-
-    const { data: jobs = [] } = useGetAllJobsQuery({
+    const { data: jobs = [], refetch } = useGetAllJobsQuery({
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true,
     });
 
-    const activeJobs = jobs.filter(job => job.isActive);
-    console.log(activeJobs)
+    useEffect(() => {
+        refetch(); 
+    }, [refetch]);
 
+    const activeJobs = jobs.filter(job => job.isActive);
+
+    function formatDate(isoDate) {
+        const date = new Date(isoDate);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
 
     return (
         <main className="container mx-auto py-8">
@@ -68,32 +78,19 @@ const JobListings = () => {
 
                 {/* Job Listings Section  */}
                 <div className="col-span-3 space-y-6">
-                    {/* Job Post Example */}
-                    <div className="bg-white p-6 shadow rounded-lg flex justify-between items-center">
-                        <div>
-                            <h3 className="text-xl font-bold text-blue-600">JAVA Mid Developer</h3>
-                            <p className="text-gray-600">Technologies: <span className="font-semibold">Java, Spring, MySQL, Docker</span></p>
-                        </div>
-                        <div className="text-gray-500">26.07.2024</div>
-                    </div>
+                    {activeJobs.map((job, index) => (
+                        <div
+                            key={index}
+                            className="bg-white p-6 shadow rounded-lg flex justify-between items-center"
+                        >
+                            <div>
+                                <h3 className="text-xl font-bold text-blue-600">{job.position}</h3>
+                                <p className="text-gray-600">Technologies: <span className="font-semibold">{job.technologies}</span></p>
+                            </div>
+                            <div className="text-gray-500">{formatDate(job.createdAt)}</div>
 
-                    {/* Additional Job Post  */}
-                    <div className="bg-white p-6 shadow rounded-lg flex justify-between items-center">
-                        <div>
-                            <h3 className="text-xl font-bold text-blue-600">JAVA Regular Developer</h3>
-                            <p className="text-gray-600">Technologies: <span className="font-semibold">Java, Hibernate, Kubernetes</span></p>
                         </div>
-                        <div className="text-gray-500">23.07.2024</div>
-                    </div>
-
-                    {/* Additional Job Post  */}
-                    <div className="bg-white p-6 shadow rounded-lg flex justify-between items-center">
-                        <div>
-                            <h3 className="text-xl font-bold text-blue-600">JAVA Developer</h3>
-                            <p className="text-gray-600">Technologies: <span className="font-semibold">Java, Spring Boot, AWS</span></p>
-                        </div>
-                        <div className="text-gray-500">30.06.2024</div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </main>);
