@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import { useGetAllJobsQuery } from '../features/jobs/jobsApiSlice.jsx';
 
 const JobListings = () => {
@@ -8,10 +8,68 @@ const JobListings = () => {
     });
 
     useEffect(() => {
-        refetch(); 
+        refetch();
     }, [refetch]);
 
+    const [filters, setFilters] = useState({
+        workType: [],
+        experienceLevel: [],
+        technologies: ''
+    });
+
+    const [filteredJobs, setFilteredJobs] = useState([]);
+   
     const activeJobs = jobs.filter(job => job.isActive);
+
+    const handleFilterChange = (type, value) => {
+        setFilters(prev => {
+            const newFilters = { ...prev };
+    
+            if (type === 'workType') {
+                newFilters.workType = newFilters.workType.includes(value)
+                    ? newFilters.workType.filter(wt => wt !== value)
+                    : [...newFilters.workType, value];
+            } else if (type === 'experienceLevel') {
+                newFilters.experienceLevel = newFilters.experienceLevel.includes(value)
+                    ? newFilters.experienceLevel.filter(el => el !== value)
+                    : [...newFilters.experienceLevel, value];
+            } else if (type === 'technologies') {
+                newFilters.technologies = value;
+            }
+    
+            return newFilters;
+        });
+    };
+
+    const applyFilters = () => {
+        let filtered = activeJobs;
+
+        if (filters.workType.length > 0) {
+            filtered = filtered.filter(job =>
+                filters.workType.includes(job.workType)
+            );
+        }
+
+        if (filters.experienceLevel.length > 0) {
+            filtered = filtered.filter(job =>
+                filters.experienceLevel.includes(job.experienceLevel)
+            );
+        }
+
+        if (filters.technologies) {
+            filtered = filtered.filter(job =>
+                job.technologies.toLowerCase().includes(filters.technologies.toLowerCase())
+            );
+        }
+        console.log(filtered)
+        setFilteredJobs(filtered); 
+    };
+
+    useEffect(() => {
+        if (filteredJobs.length === 0 && activeJobs.length > 0) {
+            setFilteredJobs(activeJobs); 
+        }
+    }, [activeJobs, filteredJobs.length]);
 
     function formatDate(isoDate) {
         const date = new Date(isoDate);
@@ -24,61 +82,70 @@ const JobListings = () => {
     return (
         <main className="container mx-auto py-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {/* Filter Section  */}
+                {/* Filter Section */}
                 <div className="bg-white p-6 shadow rounded-lg">
                     <h2 className="text-xl font-bold text-[#00b4d8] mb-4">Персонализирай търсенето</h2>
 
-                    {/* Way to Work Filter  */}
+                    {/* Way to Work Filter */}
                     <div className="mb-6">
                         <h3 className="text-lg font-bold text-blue-1000">Начин на работа</h3>
                         <div className="space-y-2 mt-2">
-                            <div>
-                                <input type="checkbox" id="remote" className="mr-2" />
-                                <label htmlFor="remote">Fully Remote</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="hybrid" className="mr-2" />
-                                <label htmlFor="hybrid">Hybrid</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="onsite" className="mr-2" />
-                                <label htmlFor="onsite">On-Site</label>
-                            </div>
+                            {['remote', 'hybrid', 'onsite'].map((type) => (
+                                <div key={type}>
+                                    <input
+                                        type="checkbox"
+                                        id={type}
+                                        className="mr-2"
+                                        onChange={() => handleFilterChange('workType', type)}
+                                    />
+                                    <label htmlFor={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</label>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Experience Level Filter  */}
+                    {/* Experience Level Filter */}
                     <div className="mb-6">
                         <h3 className="text-lg font-bold text-blue-1000">Ниво на опит</h3>
                         <div className="space-y-2 mt-2">
-                            <div>
-                                <input type="checkbox" id="junior" className="mr-2" />
-                                <label htmlFor="junior">Junior</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="mid" className="mr-2" />
-                                <label htmlFor="mid">Regular / Mid</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="senior" className="mr-2" />
-                                <label htmlFor="senior">Senior</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="lead" className="mr-2" />
-                                /                            <label htmlFor="lead">Lead / Manager</label>
-                            </div>
+                            {['junior', 'mid', 'senior', 'lead'].map((level) => (
+                                <div key={level}>
+                                    <input
+                                        type="checkbox"
+                                        id={level}
+                                        className="mr-2"
+                                        onChange={() => handleFilterChange('experienceLevel', level)}
+                                    />
+                                    <label htmlFor={level}>{level.charAt(0).toUpperCase() + level.slice(1)}</label>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Filter Button  */}
-                    <button id="filter-btn" className="w-full bg-blue-950 text-white py-2 rounded hover:bg-[#00b4d8]">
+                    {/* Technologies Filter */}
+                    <div className="mb-6">
+                        <h3 className="text-lg font-bold text-blue-1000">Технологии</h3>
+                        <input
+                            type="text"
+                            className="w-full p-2 border rounded"
+                            placeholder="Напишете технологии..."
+                            onChange={(e) => handleFilterChange('technologies', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Filter Button */}
+                    <button
+                        id="filter-btn"
+                        className="w-full bg-blue-950 text-white py-2 rounded hover:bg-[#00b4d8]"
+                        onClick={applyFilters}  
+                    >
                         Приложи филтрите
                     </button>
                 </div>
 
-                {/* Job Listings Section  */}
+                {/* Job Listings Section */}
                 <div className="col-span-3 space-y-6">
-                    {activeJobs.map((job, index) => (
+                    {filteredJobs.map((job, index) => (
                         <div
                             key={index}
                             className="bg-white p-6 shadow rounded-lg flex justify-between items-center"
@@ -88,11 +155,12 @@ const JobListings = () => {
                                 <p className="text-gray-600">Technologies: <span className="font-semibold">{job.technologies}</span></p>
                             </div>
                             <div className="text-gray-500">{formatDate(job.createdAt)}</div>
-
                         </div>
                     ))}
                 </div>
             </div>
-        </main>);
-}
+        </main>
+    );
+};
+
 export default JobListings;
