@@ -8,7 +8,9 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
     const [description, setDescription] = useState(initialData.description || '');
     const [technologies, setTechnologies] = useState(initialData.technologies || '');
     const [requirements, setRequirements] = useState(initialData.requirements || [{ text: '' }]);
-    const [isActive, setIsActive] = useState(initialData.isActive || true); 
+    const [isActive, setIsActive] = useState(initialData.isActive || true);
+    const [workType, setWorkType] = useState(initialData.workType || ''); 
+    const [experienceLevel, setExperienceLevel] = useState(initialData.experienceLevel || '');
     const { userInfo } = useAuth();
     const companyId = userInfo?.id;
 
@@ -37,7 +39,9 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
             description,
             technologies,
             requirements,
-            isActive 
+            isActive,
+            workType, 
+            experienceLevel
         };
 
         if (initialData.id) {
@@ -51,7 +55,9 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
         setDescription('');
         setTechnologies('');
         setRequirements([]);
-        setIsActive(true); 
+        setIsActive(true);
+        setWorkType(''); 
+        setExperienceLevel(''); 
     };
 
     return (
@@ -85,12 +91,12 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
                 <div>
                     <label htmlFor="category" className="font-medium text-gray-700">Изберете категория:</label>
                     <select 
-                    id="category" 
-                    name="category" 
-                    value={category} 
-                    onChange={(e) => setCategory(e.target.value)}
-                    required 
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        id="category" 
+                        name="category" 
+                        value={category} 
+                        onChange={(e) => setCategory(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value=""></option>
                         <option value="backend">Backend Development</option>
                         <option value="frontend">Frontend Development</option>
@@ -104,35 +110,57 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
                 <div>
                     <label htmlFor="position" className="font-medium text-gray-700">Наименование на позицията:</label>
                     <input 
-                    type="text" 
-                    id="position" 
-                    name="position" 
-                    value={position}
-                    onChange={(e) => setPosition(e.target.value)}
-                    required 
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        type="text" 
+                        id="position" 
+                        name="position" 
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div>
                     <label htmlFor="technologies" className="font-medium text-gray-700">Технологии:</label>
                     <input 
-                    type="text" 
-                    id="technologies" 
-                    name="technologies" 
-                    value={technologies}
-                    onChange={(e) => setTechnologies(e.target.value)}
-                    required 
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        type="text" 
+                        id="technologies" 
+                        name="technologies" 
+                        value={technologies}
+                        onChange={(e) => setTechnologies(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div>
                     <label htmlFor="description" className="font-medium text-gray-700">Описание на ролята:</label>
                     <textarea 
-                    id="description" 
-                    name="description" 
-                    rows="4" 
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required 
-                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        id="description" 
+                        name="description" 
+                        rows="4" 
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div>
+                    <label htmlFor="workType" className="font-medium text-gray-700">Тип работа:</label>
+                    <input 
+                        type="text" 
+                        id="workType" 
+                        name="workType" 
+                        value={workType}
+                        onChange={(e) => setWorkType(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                    <label htmlFor="experienceLevel" className="font-medium text-gray-700">Ниво на опит:</label>
+                    <input 
+                        type="text" 
+                        id="experienceLevel" 
+                        name="experienceLevel" 
+                        value={experienceLevel}
+                        onChange={(e) => setExperienceLevel(e.target.value)}
+                        required 
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div className="mb-6">
                     <h3 className="font-medium text-gray-700">Изисквания към кандидата:</h3>
@@ -153,12 +181,12 @@ const JobForm = ({ initialData, onSave, onUpdate }) => {
                             </button>
                         </div>
                     ))}
-
                     <button
                         type="button"
                         onClick={handleAddRequirement}
                         className="text-white bg-[#004AAD] hover:bg-blue-700 px-4 py-2 rounded-md shadow-sm"
-                    > Добави ред
+                    >
+                        Добави ред
                     </button>
                 </div>
                 <button onClick={handleSave} type="button" className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Създай Обява</button>

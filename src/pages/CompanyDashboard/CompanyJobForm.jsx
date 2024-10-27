@@ -35,7 +35,7 @@ const CompanyJobForm = () => {
     };
 
     return (
-        <section className="container mx-auto my-12 p-6 bg-white shadow-lg rounded-lg text-center">
+        <section className="container mx-auto my-12 p-6 text-center">
             <JobForm
                 initialData={selectedJob || {}}
                 onSave={handleCreateJob}
