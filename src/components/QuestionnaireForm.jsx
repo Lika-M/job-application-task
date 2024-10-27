@@ -62,6 +62,7 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
         />
       </div>
@@ -72,6 +73,7 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
           type="text"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
+          required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
         />
       </div>
@@ -82,6 +84,7 @@ const QuestionnaireForm = ({ onSave, onUpdate, onDelete, initialData = {} }) => 
           type="text"
           value={technologies}
           onChange={(e) => setTechnologies(e.target.value)}
+          required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
         />
       </div>
