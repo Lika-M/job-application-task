@@ -1,4 +1,15 @@
+import { useGetAllJobsQuery } from '../features/jobs/jobsApiSlice.jsx';
+
 const JobListings = () => {
+
+    const { data: jobs = [] } = useGetAllJobsQuery({
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+    });
+
+    const activeJobs = jobs.filter(job => job.isActive);
+    console.log(activeJobs)
+
 
     return (
         <main className="container mx-auto py-8">

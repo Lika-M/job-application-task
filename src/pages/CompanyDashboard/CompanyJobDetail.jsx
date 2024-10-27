@@ -1,15 +1,19 @@
-import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
-import { useGetJobsQuery } from '../../features/jobs/jobsApiSlice.jsx'
+import { useGetJobsQuery, useUpdateJobMutation } from '../../features/jobs/jobsApiSlice';
 
 const CompanyJobDetail = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const { userInfo } = useAuth();
+    const [updateJob] = useUpdateJobMutation();
     const companyId = userInfo?.id;
 
-    const { data: jobs = [] } = useGetJobsQuery(companyId);
+    const { data: jobs = [] } = useGetJobsQuery(companyId, {
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+    });
 
     if (jobs.length === 0) {
         return (<p className="text-center mt-10">Няма налични обяви.</p>);
@@ -20,6 +24,28 @@ const CompanyJobDetail = () => {
     if (!job) {
         return <p className="text-center mt-10">Обявата не беше намерена.</p>;
     }
+
+    const handlePublish = async () => {
+        try {
+            const updatedJob = { ...job, isActive: true };
+            await updateJob(updatedJob).unwrap();
+            console.log("publish!")
+            navigate('/job-board');
+        } catch (error) {
+            console.error("Error publishing job:", error);
+        }
+    };
+
+    const handleUnPublish = async () => {
+        try {
+            const updatedJob = { ...job, isActive: false };
+            await updateJob(updatedJob).unwrap();
+            console.log("unPublish!")
+            navigate('/job-board');
+        } catch (error) {
+            console.error("Error publishing job:", error);
+        }
+    };
 
     function formatDate(isoDate) {
         const date = new Date(isoDate);
@@ -67,6 +93,17 @@ const CompanyJobDetail = () => {
                     >
                         Добави въпросник
                     </button>
+                    {job.isActive ? (
+                        <button
+                            className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                            onClick={handleUnPublish}>Свали обява
+                        </button>
+                    ) : (
+                        <button
+                            className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                            onClick={handlePublish}>Публикувай обява
+                        </button>
+                    )}
                 </div>
             </article>
             <article className="text-center">

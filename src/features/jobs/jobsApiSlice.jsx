@@ -18,6 +18,9 @@ export const jobsApi = createApi({
     reducerPath: 'jobsApi',
     baseQuery,
     endpoints: (builder) => ({
+        getAllJobs: builder.query({
+            query: () => '/jobs',
+        }),
         getJobs: builder.query({
             query: (companyId) => `/jobs?companyId=${companyId}`,
         }),
@@ -31,7 +34,7 @@ export const jobsApi = createApi({
         updateJob: builder.mutation({
             query: (updatedJob) => ({
                 url: `/jobs/${updatedJob.id}`,
-                method: 'PATCH',
+                method: 'PUT',
                 body: updatedJob,
             }),
         }),
@@ -45,6 +48,7 @@ export const jobsApi = createApi({
 });
 
 export const {
+    useGetAllJobsQuery,
     useGetJobsQuery,
     useAddJobMutation,
     useUpdateJobMutation,
