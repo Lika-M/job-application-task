@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { validateRegistration } from '../utils/validation'; 
+import { validateRegistration } from '../utils/validation';
 
 // eslint-disable-next-line react/prop-types
 const EmployeeRegister = ({ onSubmit }) => {
@@ -20,7 +20,7 @@ const EmployeeRegister = ({ onSubmit }) => {
     if (Object.keys(validationErrors).length === 0) {
       onSubmit(formData);
     } else {
-      setErrors(validationErrors); 
+      setErrors(validationErrors);
     }
   };
 
@@ -43,9 +43,10 @@ const EmployeeRegister = ({ onSubmit }) => {
       <div className="flex items-center mb-4">
         <input type="checkbox" id="termsAccepted" onChange={handleInputChange} className="mr-2" />
         <label htmlFor="termsAccepted" className="text-gray-600">I agree to the General Conditions and Privacy Notice.</label>        </div>
-            <button type="submit" className="w-full p-2 bg-[#004AAD] text-white rounded">Register</button>
-        </form>
-    );
+      {errors.termsAccepted && <p className="text-red-500">{errors.termsAccepted}</p>}
+      <button type="submit" className="w-full p-2 bg-[#004AAD] text-white rounded">Register</button>
+    </form>
+  );
 };
 
 export default EmployeeRegister;

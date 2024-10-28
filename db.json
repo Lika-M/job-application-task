@@ -17,6 +17,24 @@
       "termsAccepted": true,
       "user_type": "employee",
       "id": 2
+    },
+    {
+      "firstName": "Lika",
+      "lastName": "M",
+      "email": "peter@abv.bg",
+      "password": "111111",
+      "termsAccepted": true,
+      "user_type": "employee",
+      "id": 3
+    },
+    {
+      "firstName": "Lika",
+      "lastName": "Mamamama",
+      "email": "peter@abv.bg",
+      "password": "111111",
+      "termsAccepted": true,
+      "user_type": "employee",
+      "id": 4
     }
   ],
   "companies": [
