@@ -21,6 +21,13 @@ const JobListings = () => {
    
     const activeJobs = jobs.filter(job => job.isActive);
 
+    useEffect(() => {
+        if (activeJobs.length > 0) {
+            setFilteredJobs(activeJobs);
+        }
+    }, []);
+
+
     const handleFilterChange = (type, value) => {
         setFilters(prev => {
             const newFilters = { ...prev };
@@ -64,12 +71,6 @@ const JobListings = () => {
         console.log(filtered)
         setFilteredJobs(filtered); 
     };
-
-    useEffect(() => {
-        if (filteredJobs.length === 0 && activeJobs.length > 0) {
-            setFilteredJobs(activeJobs); 
-        }
-    }, [activeJobs, filteredJobs.length]);
 
     function formatDate(isoDate) {
         const date = new Date(isoDate);
@@ -145,7 +146,8 @@ const JobListings = () => {
 
                 {/* Job Listings Section */}
                 <div className="col-span-3 space-y-6">
-                    {filteredJobs.map((job, index) => (
+                {filteredJobs.length > 0 ? (
+                    filteredJobs.map((job, index) => (
                         <div
                             key={index}
                             className="bg-white p-6 shadow rounded-lg flex justify-between items-center"
@@ -155,8 +157,12 @@ const JobListings = () => {
                                 <p className="text-gray-600">Technologies: <span className="font-semibold">{job.technologies}</span></p>
                             </div>
                             <div className="text-gray-500">{formatDate(job.createdAt)}</div>
+                            <div className="text-gray-500">{job.experienceLevel}</div>
                         </div>
-                    ))}
+                    ))
+                ) : (
+                    <div className="text-gray-500 text-center mt-10">Няма налични обяви за тези филтри.</div>
+                )}
                 </div>
             </div>
         </main>
