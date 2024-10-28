@@ -18,17 +18,19 @@ const validateLoginForm = (formData) => {
 const validateRegistration = (formData) => {
     const errors = {};
 
-    // Company Name validation
-    if (!formData.companyName) {
-        errors.companyName = "Company name is required.";
-    }
+    if (formData.companyName) {
+        // Company Name validation
+        if (!formData.companyName) {
+            errors.companyName = "Company name is required.";
+        }
 
-    // VAT validation
-    const vatRegex = /^BG\d{9}$/;
-    if (!formData.vat) {
-        errors.vat = "VAT number is required.";
-    } else if (!vatRegex.test(formData.vat)) {
-        errors.vat = "Invalid VAT number.";
+        // VAT validation
+        const vatRegex = /^(BG)?\d{9,10}$/;
+        if (!formData.vat) {
+            errors.vat = "VAT number is required.";
+        } else if (!vatRegex.test(formData.vat)) {
+            errors.vat = "Invalid VAT number.";
+        }
     }
 
     // Email validation
@@ -55,4 +57,4 @@ const validateRegistration = (formData) => {
     return errors;
 };
 
-export {validateLoginForm, validateRegistration};
+export { validateLoginForm, validateRegistration };
