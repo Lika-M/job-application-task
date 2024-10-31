@@ -1,6 +1,6 @@
 # Web-IT Project
 
-This project was created as part of a technical assessment. This project uses the JSON Server library to provide a mock backend for simulated database interactions. 
+This project was provided as a frontend-only task for a technical assessment. To implement the required functionalities (user authentication, navigation, questionnaire and job listing management, and search with filters), it was adapted to work with JSON Server, simulating backend interactions. A new database structure was also set up to support these features effectively.
 
 ## Features
 
@@ -64,5 +64,14 @@ Open your browser and navigate to http://localhost:5173 to access the applicatio
 
 ### To-Do List
 
-Check the ToDo.txt file for the list of tasks and future improvements.
+1. Fix or create page navigation where needed.
+
+2. Correct and validate login and registration features to ensure proper functionality.
+
+3. Implement create and save functionality for questionnaires in the company dashboard.
+
+4. Implement functionality to create, save in the dashboard, and publish a job listing from the company.
+
+5. Implement a job listing search with three filters, allowing searches based on a specific category or subcategory (e.g., backend or Java).
+
 
